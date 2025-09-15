@@ -1,20 +1,48 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+// App.tsx
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import WeatherDrawer from './weather/WeatherDrawer';
+import { View, Text } from 'react-native';
 
-export default function App() {
+type NextProjectStackParamList = {
+  Home: undefined;
+};
+
+const Drawer = createDrawerNavigator();
+const NextProjectStack = createNativeStackNavigator<NextProjectStackParamList>();
+
+function NextProjectNavigator() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NextProjectStack.Navigator>
+      <NextProjectStack.Screen
+        name="Home"
+        component={NextProjectHomeScreen}
+        options={{ title: 'Next Project' }}
+      />
+    </NextProjectStack.Navigator>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Drawer.Navigator
+        screenOptions={{ headerShown: false, drawerPosition: 'right', swipeEdgeWidth: 150 }}
+      >
+        <Drawer.Screen name="Weather App" component={WeatherDrawer} />
+        <Drawer.Screen name="Next Project" component={NextProjectNavigator} />
+      </Drawer.Navigator>
+    </NavigationContainer>
+  );
+}
+
+// simple placeholder so it compiles
+function NextProjectHomeScreen() {
+  return (
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Next Project Home</Text>
+    </View>
+  );
+}
