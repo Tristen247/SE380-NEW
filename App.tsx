@@ -5,25 +5,15 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import WeatherDrawer from './weather/WeatherDrawer';
 import { View, Text } from 'react-native';
+import BatteryDrawer from './battery/BatteryDrawer';
 
 type NextProjectStackParamList = {
   Home: undefined;
 };
 
 const Drawer = createDrawerNavigator();
-const NextProjectStack = createNativeStackNavigator<NextProjectStackParamList>();
 
-function NextProjectNavigator() {
-  return (
-    <NextProjectStack.Navigator>
-      <NextProjectStack.Screen
-        name="Home"
-        component={NextProjectHomeScreen}
-        options={{ title: 'Next Project' }}
-      />
-    </NextProjectStack.Navigator>
-  );
-}
+
 
 export default function App() {
   return (
@@ -32,7 +22,7 @@ export default function App() {
         screenOptions={{ headerShown: false, drawerPosition: 'right', swipeEdgeWidth: 150 }}
       >
         <Drawer.Screen name="Weather App" component={WeatherDrawer} />
-        <Drawer.Screen name="Next Project" component={NextProjectNavigator} />
+        <Drawer.Screen name="Battery" component={BatteryDrawer} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
